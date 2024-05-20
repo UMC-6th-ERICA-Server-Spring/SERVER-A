@@ -1,12 +1,19 @@
 package umc.spring.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
 import umc.spring.domain.common.BaseEntitiy;
+import umc.spring.domain.mapping.Review;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity //JPA Entity임을 명시
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Shop extends BaseEntitiy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +32,10 @@ public class Shop extends BaseEntitiy {
     private String section; //ex. 안산시, 강릉시, 전주시...
 
     private String address;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+    private List<Mission> missionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
 }
