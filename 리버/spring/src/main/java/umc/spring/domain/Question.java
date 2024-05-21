@@ -35,6 +35,7 @@ public class Question extends BaseEntity {
     private QuestionType questionType;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<QuestionImage> questionImages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

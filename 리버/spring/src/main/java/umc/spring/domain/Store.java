@@ -32,9 +32,11 @@ public class Store extends BaseEntity {
     private Float star;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Mission> missionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<UserReview> userReviewList = new ArrayList<>();
 
 }

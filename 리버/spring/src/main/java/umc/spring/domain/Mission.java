@@ -4,8 +4,11 @@ package umc.spring.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.spring.domain.common.BaseEntity;
+import umc.spring.domain.mapping.UserMission;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +26,10 @@ public class Mission extends BaseEntity {
     private Integer price;
 
     private Integer point;
+
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<UserMission> userMissionList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")

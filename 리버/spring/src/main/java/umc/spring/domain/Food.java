@@ -23,6 +23,7 @@ public class Food extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<UserFood> userFoodList = new ArrayList<>();
 
 }
