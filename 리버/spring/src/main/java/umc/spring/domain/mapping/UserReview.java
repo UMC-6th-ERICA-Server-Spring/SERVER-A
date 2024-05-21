@@ -25,7 +25,7 @@ public class UserReview extends BaseEntity {
 
     private String body;
 
-    @OneToMany(mappedBy = "userreview", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userReview", cascade = CascadeType.ALL)
     @Builder.Default
     private List<ReviewImage> reviewImages = new ArrayList<>();
 
