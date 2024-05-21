@@ -3,6 +3,7 @@ package umc.spring.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.spring.domain.common.BaseEntity;
+import umc.spring.domain.mapping.UserReview;
 
 @Entity
 @Getter
@@ -20,6 +21,6 @@ public class ReviewImage extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
-    private Review review;
+    private UserReview review;
 
 }

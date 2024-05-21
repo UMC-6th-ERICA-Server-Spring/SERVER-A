@@ -2,9 +2,13 @@ package umc.spring.domain.mapping;
 
 import jakarta.persistence.*;
 import lombok.*;
+import umc.spring.domain.ReviewImage;
 import umc.spring.domain.Store;
 import umc.spring.domain.User;
 import umc.spring.domain.common.BaseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +24,10 @@ public class UserReview extends BaseEntity {
     private Integer star;
 
     private String body;
+
+    @OneToMany(mappedBy = "userreview", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<ReviewImage> reviewImages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
