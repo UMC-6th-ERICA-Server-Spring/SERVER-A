@@ -19,6 +19,7 @@ public class Shop extends BaseEntitiy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 20)
     private String name;
 
     private Float rate;
@@ -27,10 +28,13 @@ public class Shop extends BaseEntitiy {
 
     private LocalTime close;
 
+    @Column(nullable = false, length = 10)
     private String province; //ex. 경기도, 강원도, 전라북도...
 
+    @Column(nullable = false, length = 10)
     private String section; //ex. 안산시, 강릉시, 전주시...
 
+    @Column(nullable = false, length = 100)
     private String address;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)

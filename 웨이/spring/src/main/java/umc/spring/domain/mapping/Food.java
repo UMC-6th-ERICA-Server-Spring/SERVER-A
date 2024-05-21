@@ -17,6 +17,7 @@ public class Food extends BaseEntitiy {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(6)")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)

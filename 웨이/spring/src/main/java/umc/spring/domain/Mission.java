@@ -23,6 +23,7 @@ public class Mission extends BaseEntitiy {
     private Integer price; //미션 금액 → 10,000(원)
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private MissionStatus status;
 
     private LocalDate deadline;

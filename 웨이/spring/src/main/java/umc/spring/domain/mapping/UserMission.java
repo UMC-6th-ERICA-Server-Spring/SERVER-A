@@ -18,6 +18,7 @@ public class UserMission extends BaseEntitiy {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private ChallengeStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
