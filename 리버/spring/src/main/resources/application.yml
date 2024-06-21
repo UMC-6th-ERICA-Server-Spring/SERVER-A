@@ -32,3 +32,4 @@ springdoc:
   default-produces-media-type: application/json
   paths-to-match:
     - /**
+  use-fqn: true
