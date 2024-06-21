@@ -2,6 +2,9 @@ package umc.spring.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.Gender;
 import umc.spring.domain.enums.Social;
@@ -16,6 +19,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicInsert
+@DynamicUpdate
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -32,11 +37,22 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private Gender gender;
 
-    private LocalDate birth;
+    @ColumnDefault("0")
+    private Integer birthYear;
+
+    @ColumnDefault("0")
+    private Integer birthMonth;
+
+    @ColumnDefault("0")
+    private Integer birthDay;
 
     @Column(nullable = false, length = 100)
     private String address;
 
+    @Column(nullable = false, length = 100)
+    private String specAddress;
+
+    @ColumnDefault("0")
     private Integer totalPoint;
 
     @Enumerated(EnumType.STRING)
@@ -45,14 +61,14 @@ public class User extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    @Column(nullable = false, length = 20)
+//    @Column(nullable = false, length = 20)
     private String email;
 
     @Column(nullable = false, length = 20)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(20)")
+    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'NONE'")
     private Social social;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
