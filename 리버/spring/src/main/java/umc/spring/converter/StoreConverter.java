@@ -5,6 +5,7 @@ import umc.spring.web.dto.StoreRequestDTO;
 import umc.spring.web.dto.StoreResponseDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class StoreConverter {
 
@@ -20,6 +21,8 @@ public class StoreConverter {
                 .name(request.getName())
                 .address(request.getAddress())
                 .region(request.getRegion())
+                .userReviewList(new ArrayList<>())
+                .missionList(new ArrayList<>())
                 .build();
     }
 }
