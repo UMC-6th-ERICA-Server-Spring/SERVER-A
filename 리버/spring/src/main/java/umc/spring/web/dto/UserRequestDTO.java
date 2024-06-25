@@ -4,9 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import umc.spring.domain.Mission;
 import umc.spring.validation.annotation.ExistCategories;
-import umc.spring.validation.annotation.ExistMission;
 
 import java.util.List;
 
@@ -32,5 +30,11 @@ public class UserRequestDTO {
         String specAddress;
         @ExistCategories
         List<Long> userFood;
+    }
+
+    @Getter
+    public static class UserMissionChallengeDTO {
+        @NotNull
+        Long status;
     }
 }

@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.domain.User;
+import umc.spring.domain.mapping.UserMission;
 import umc.spring.repository.FoodRepository;
+import umc.spring.repository.UserMissionRepository;
 import umc.spring.repository.UserRepository;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     private final FoodRepository foodRepository;
 
+    private final UserMissionRepository userMissionRepository;
+
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
@@ -29,5 +33,10 @@ public class UserQueryServiceImpl implements UserQueryService {
         boolean isValid = foods.stream()
                 .allMatch(food -> foodRepository.existsById(food));
         return isValid;
+    }
+
+    @Override
+    public Optional<UserMission> findUserMissionById(Long userMissionId) {
+        return userMissionRepository.findById(userMissionId);
     }
 }

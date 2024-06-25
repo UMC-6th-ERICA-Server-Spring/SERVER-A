@@ -2,6 +2,8 @@ package umc.spring.converter;
 
 import umc.spring.domain.User;
 import umc.spring.domain.enums.Gender;
+import umc.spring.domain.enums.MissionStatus;
+import umc.spring.domain.mapping.UserMission;
 import umc.spring.web.dto.UserRequestDTO;
 import umc.spring.web.dto.UserResponseDTO;
 
@@ -19,19 +21,12 @@ public class UserConverter {
 
     public static User toUser(UserRequestDTO.UserJoinDTO request) {
 
-        Gender gender = null;
-
-        switch (request.getGender()) {
-            case 1:
-                gender = Gender.MALE;
-                break;
-            case 2:
-                gender = Gender.FEMALE;
-                break;
-            case 3:
-                gender = Gender.NONE;
-                break;
-        }
+        Gender gender = switch (request.getGender()) {
+            case 1 -> Gender.MALE;
+            case 2 -> Gender.FEMALE;
+            case 3 -> Gender.NONE;
+            default -> null;
+        };
 
         return User.builder()
                 .name(request.getName())
@@ -44,5 +39,25 @@ public class UserConverter {
                 .birthDay(request.getBirthDay())
                 .userFoodList(new ArrayList<>())
                 .build();
+    }
+
+    public static UserResponseDTO.UserMissionChallengeResultDTO toChallengeResultDTO(UserMission userMission) {
+        return UserResponseDTO.UserMissionChallengeResultDTO.builder()
+                .userMissionId(userMission.getId())
+                .createAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static UserMission toUserMission(UserRequestDTO.UserMissionChallengeDTO request) {
+        if (request.getStatus() == 0) {
+            return UserMission.builder()
+                    .status(MissionStatus.ONGOING)
+                    .build();
+        }
+        else {
+            return UserMission.builder()
+                    .status(MissionStatus.COMPLETE)
+                    .build();
+        }
     }
 }

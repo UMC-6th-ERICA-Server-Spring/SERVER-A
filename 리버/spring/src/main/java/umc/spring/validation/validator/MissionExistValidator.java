@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.domain.Mission;
-import umc.spring.service.MissionService.MissionQueryService;
+import umc.spring.service.StoreService.StoreQueryService;
 import umc.spring.validation.annotation.ExistMission;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MissionExistValidator implements ConstraintValidator<ExistMission, Long> {
 
-    private final MissionQueryService missionQueryService;
+    private final StoreQueryService storeQueryService;
 
     @Override
     public void initialize(ExistMission constraintAnnotation) {
@@ -24,7 +24,7 @@ public class MissionExistValidator implements ConstraintValidator<ExistMission, 
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
-        Optional<Mission> mission = missionQueryService.findMissionById(value);
+        Optional<Mission> mission = storeQueryService.findMissionById(value);
 
         if (mission.isEmpty()) {
             context.disableDefaultConstraintViolation();
