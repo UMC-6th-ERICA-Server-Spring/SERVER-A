@@ -58,14 +58,30 @@ public class UserRestController {
             @Parameter(name = "userId", description = "사용자의 아이디, path variable 입니다."),
             @Parameter(name = "missionId", description = "미션의 아이디, 도전할 미션의 아이디 입니다.")
     })
-
-    
-
     public ApiResponse<UserResponseDTO.UserMissionChallengeResultDTO> challengeMission(@RequestBody @Valid UserRequestDTO.UserMissionChallengeDTO request,
-                                                                                              @ExistUser @PathVariable(name = "userId") Long userId,
-                                                                                              @ExistMission @RequestParam(name = "missionId") Long missionId) {
+                                                                                       @ExistUser @PathVariable(name = "userId") Long userId,
+                                                                                       @ExistMission @RequestParam(name = "missionId") Long missionId) {
         UserMission userMission = userCommandService.challengeUserMission(userId, missionId, request);
         return ApiResponse.onSuccess(UserConverter.toChallengeResultDTO(userMission));
+    }
+
+    @PatchMapping("/{userId}/missions")
+    @Operation(summary = "미션 완료하기 API", description = "내가 도전 중인 미션을 완료하는 API 입니다. 완료할 미션의 missionId와 사용자의 userId가 필요합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH0003", description = "access token을 주세요", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess token 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess token 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "userId", description = "사용자의 아이디, path variable 입니다."),
+            @Parameter(name = "missionId", description = "미션의 아이디, 완료할 미션의 아이디 입니다.")
+    })
+    public ApiResponse<UserResponseDTO.UserMissionCompleteResultDTO> completeMission(@RequestBody @Valid UserRequestDTO.UserMissionCompleteDTO request,
+                                                                                     @ExistUser @Parameter(name = "userId") Long userId,
+                                                                                     @ExistMission @RequestParam(name = "missionId") Long missionId) {
+        UserMission userMission = userCommandService.completeUserMission(userId, missionId, request);
+        return ApiResponse.onSuccess(UserConverter.toCompleteResultDTO(userMission));
     }
 
     @GetMapping("/{userId}/missions")

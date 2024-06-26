@@ -34,7 +34,6 @@ public class UserResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UserMissionCompleteResultDTO {
-        Long userMissionId;
         LocalDateTime updateAt;
     }
 

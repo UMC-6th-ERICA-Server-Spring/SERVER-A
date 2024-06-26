@@ -10,4 +10,7 @@ public interface UserCommandService {
 
     @Transactional
     UserMission challengeUserMission(Long userId, Long missionId, UserRequestDTO.UserMissionChallengeDTO request);
+
+    @Transactional
+    UserMission completeUserMission(Long userId, Long missionId, UserRequestDTO.UserMissionCompleteDTO request);
 }

@@ -53,6 +53,12 @@ public class UserConverter {
                 .build();
     }
 
+    public static UserResponseDTO.UserMissionCompleteResultDTO toCompleteResultDTO(UserMission userMission) {
+        return UserResponseDTO.UserMissionCompleteResultDTO.builder()
+                .updateAt(LocalDateTime.now())
+                .build();
+    }
+
     public static UserMission toUserMission(UserRequestDTO.UserMissionChallengeDTO request) {
         if (request.getStatus() == 0) {
             return UserMission.builder()

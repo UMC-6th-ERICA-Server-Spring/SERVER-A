@@ -75,4 +75,27 @@ public class UserCommandServiceImpl implements UserCommandService {
 
         return userMissionRepository.save(newUserMission);
     }
+
+    @Override
+    @Transactional
+    public UserMission completeUserMission(Long userId, Long missionId, UserRequestDTO.UserMissionCompleteDTO request) {
+
+        Mission mission = missionRepository.findById(missionId).get();
+        User user = userRepository.findById(userId).get();
+        UserMission userMission = userMissionRepository.findByMissionAndUser(mission, user);
+
+        if (userMission != null) {
+            //String missionStatus = userMission.getStatus().toString();
+            if (userMission.getStatus()== MissionStatus.COMPLETE) {
+                throw new UserMissionHandler(ErrorStatus.MISSION_COMPLETE);
+            }
+            else {
+                userMission.updateMissionStatus(MissionStatus.COMPLETE);
+                return userMissionRepository.save(userMission);
+            }
+        }
+        else {
+            throw new UserMissionHandler(ErrorStatus.MISSION_NOT_MINE);
+        }
+    }
 }
