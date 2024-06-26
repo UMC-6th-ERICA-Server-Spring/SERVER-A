@@ -1,8 +1,6 @@
 package umc.spring.web.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -23,7 +21,7 @@ public class StoreRequestDTO {
     public static class UserReviewCreateDTO {
         @NotBlank
         String body;
-        @NotNull
+        @NotNull @Max(5) @Min(0)
         Float star;
         //List<String> reviewImages;
     }

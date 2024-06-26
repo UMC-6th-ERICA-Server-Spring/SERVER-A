@@ -37,4 +37,10 @@ public class UserRequestDTO {
         @NotNull
         Long status;
     }
+
+    @Getter
+    public static class UserMissionCompleteDTO {
+        @NotNull
+        Long status;
+    }
 }
